@@ -1,0 +1,2 @@
+-- "Lua config
+require("init")

@@ -1,0 +1,5 @@
+alias k='kubectl'
+alias ls='ls -l --group-directories-first --color'
+
+# Toolbx aliases
+alias vim='/opt/nvim/nvim.appimage'

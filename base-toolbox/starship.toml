@@ -1,0 +1,9 @@
+[terraform]
+disabled = false
+format = "[$workspace]($style) "
+
+[gcloud]
+#symbol = "️🇬️ "
+symbol = "️"
+format = '[$symbol$account(\($project\))]($style) '
+
