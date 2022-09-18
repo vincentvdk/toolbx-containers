@@ -27,7 +27,7 @@ RUN mkdir -p /opt/config/tmux
 COPY tmux.conf /opt/config/tmux/tmux.conf
 
 # -- ASDF for binaries
-RUN git clone https://github.com/asdf-vm/asdf.git /opt/bin/adsf --branch v0.10.2
+RUN git clone https://github.com/asdf-vm/asdf.git /opt/bin/asdf --branch v0.10.2
 
 # -- NodeJS, nvm, npm,..
 ENV NVM_DIR="/opt/nvm"

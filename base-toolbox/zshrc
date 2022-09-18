@@ -67,6 +67,9 @@ fi
 # -- Fuzzy finder --------------------------------------------------------------
 export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" ' 
 
+# -- ASDF
+. $ASDF_DIR/asdf.sh
+
 # -- Initialize starship prompt
 eval "$(starship init zsh)"
 
