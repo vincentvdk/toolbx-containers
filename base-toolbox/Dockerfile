@@ -37,6 +37,9 @@ RUN git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR" && \
   nvm install node && \
   npm install -g typescript typescript-language-server
 
+# -- basic bash config to set hostname and such (might need to look into a better solution later on)
+RUN echo 'export HOSTNAME=`cat /run/.containerenv | grep 'name=' | cut -d= -f2`' >> ~/.bashrc
+
 # -- ENV
 ENV ZDOTDIR=/opt/config/zsh
 ENV FZF_BASE=/opt/config/fzf

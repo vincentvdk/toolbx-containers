@@ -25,6 +25,7 @@ export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.local/bin:${KREW_ROOT:-$HOME/.k
 # -- Aliases ---------------------------------------
 source /opt/config/zsh_aliases
 
+alias tmux='tmux -s /tmp/${HOSTNAME} new' # tmux sessions in toolboxes are re-using existing sessions causing issues
 alias dpg='cd ~/customers/dpg'
 alias zoolite='cd ~/zoolite'
 alias gi='~/.local/bin/grv'

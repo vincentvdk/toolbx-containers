@@ -18,10 +18,14 @@ return require('packer').startup(function(use)
   -- Status line
   use "nvim-lualine/lualine.nvim"
 
+  -- Syntax
+  use({"nvim-treesitter/nvim-treesitter"})  -- enable treesitter
+
   -- LSP
   use ({"neovim/nvim-lspconfig"})     -- enable LSP
   use ({"hrsh7th/nvim-cmp"})          -- Autocompletion plugin
   use ({"hrsh7th/cmp-nvim-lsp"})      -- LSP source for nvim-cmp
+  use ({"hrsh7th/cmp-buffer"})        -- Buffer source for nvim-cmp
   use ({"L3MON4D3/LuaSnip"})          -- nvim-cmp needs a snippet engine
   use ({"saadparwaiz1/cmp_luasnip"})  -- nvim-cmp needs a snippet engine (dep)
 
@@ -30,4 +34,7 @@ return require('packer').startup(function(use)
     "nvim-telescope/telescope.nvim", tag = '0.1.0',
     requires = { {"nvim-lua/plenary.nvim"} }
   }
+  -- Terraform
+  use({"hashivim/vim-terraform"})
+
 end)
