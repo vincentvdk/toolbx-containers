@@ -2,7 +2,7 @@ FROM fedora:latest
 LABEL com.github.containers.toolbox="true"
 
 # -- Packages
-RUN dnf install -y tmux passwd bash zsh fuse fuse-libs curl starship git unzip procps-ng ripgrep bat pgp-tools xclip && dnf clean all
+RUN dnf install -y tmux passwd bash zsh fuse fuse-libs curl git unzip procps-ng ripgrep bat pgp-tools xclip && dnf clean all
 
 # -- Directories
 RUN mkdir -p /opt/config/zsh/.antigen
@@ -24,6 +24,10 @@ COPY tmux.conf /opt/config/tmux/tmux.conf
 
 # -- ASDF for binaries
 RUN git clone https://github.com/asdf-vm/asdf.git /opt/bin/asdf --branch v0.10.2
+
+# -- powerlevel20k
+RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /opt/powerlevel10k
+COPY p10k.zsh /opt/config/zsh/pk10.zsh
 
 # -- NodeJS, nvm, npm,..
 ENV NVM_DIR="/opt/nvm"

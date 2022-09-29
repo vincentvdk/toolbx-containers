@@ -16,7 +16,8 @@ for different customers. Sometimes I even need different environments for
 multiple teams at a single customer.
 
 ## Requirements
-<TBD>
+These toolboxes are based on Fedora as I run them on Fedora Silverblue. They are not tested on
+other distributions.
 
 ## What's in the toolboxes?
 ### Packages
@@ -27,6 +28,12 @@ multiple teams at a single customer.
 - Plugins are managed by `Packer` which seems to be the go-to plugin manager for Neovim.
 - Language server (LSP) is handled by `neovim-lsp`.
 - `Telescope` takes care of fuzzy finding.
+
+### Theme
+I use the [Nightfox](https://github.com/EdenEast/nightfox.nvim) theme.
+
+## How to use the toolbox
+<TBD>
 
 ## How binaries are managed.
 A lot of the tools that I use can be installed by downloading a binary, make it
@@ -43,11 +50,14 @@ Best way to explain it is by showing some examples
 
 ### Example: Install golang
 ```
+asdf plugin add golang
 asdf install golang 1.19.1
+asdf global golang 1.19.1
+asdf current golang
 ```
+Check the `asdf` [documentation](https://asdf-vm.com/guide/getting-started.html) (run asdf without options to get options)
 
-## How to use the toolbox
-<TBD>
 
 ## References
 - https://github.com/containers/toolbox
+- https://github.com/kennyp/asdf-golang/issues/28 (Golang and asdf)

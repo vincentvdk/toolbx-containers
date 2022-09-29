@@ -78,3 +78,6 @@ eval "$(starship init zsh)"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #export PATH=$PATH:$(yarn global bin) # needed for coc diagnostics-languageserver
 ## END NVM Block
+
+# To customize prompt, run `p10k configure` or edit /opt/config/zsh/.p10k.zsh.
+[[ ! -f /opt/config/zsh/p10k.zsh ]] || source /opt/config/zsh/p10k.zsh
