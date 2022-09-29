@@ -18,10 +18,6 @@ RUN curl -L git.io/antigen > /opt/config/zsh/.antigen/antigen.zsh
 COPY zshrc /opt/config/zsh/.zshrc
 COPY zsh_aliases /opt/config/
 
-## -- Alacritty
-#RUN mkdir -p /opt/config/alacritty
-#COPY alacritty.yml /opt/config/alacritty/
-
 # -- TMUX
 RUN mkdir -p /opt/config/tmux
 COPY tmux.conf /opt/config/tmux/tmux.conf

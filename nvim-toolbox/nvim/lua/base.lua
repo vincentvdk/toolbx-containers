@@ -87,8 +87,12 @@ require('nvim-treesitter.configs').setup {
 
 -- LSP ------------------------------------------------------------------------
 -- Diagnostics
+-- See `:help vim.lsp.*` for documentation
 local on_attach = function(client, bufnr)
 	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
+  vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
+  vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
   vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
 end
@@ -137,6 +141,7 @@ cmp.setup.cmdline('/', {
 local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Language servers config ----------------------------------------------------
+-- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
 -- Golang
 require('lspconfig')['gopls'].setup{
   on_attach = on_attach,
