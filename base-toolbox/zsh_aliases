@@ -1,5 +1,14 @@
+# -- Toolbx aliases
+# Kubernetes
 alias k='kubectl'
 alias ls='ls -l --group-directories-first --color'
 
-# Toolbx aliases
-alias vim='/opt/nvim/nvim.appimage'
+# Misc
+alias tmux='tmux -s /tmp/${HOSTNAME} new' # tmux sessions in toolboxes are re-using existing sessions causing issues
+alias cat='bat'
+#
+alias dpg='cd ~/customers/dpg'
+alias zoolite='cd ~/zoolite'
+alias gi='~/.local/bin/grv'
+alias aws-instances="aws ec2 describe-instances | jq -r '.Reservations[].Instances[] | .Tags[]|select(.Key=="Name")|.Value'"
+

@@ -35,6 +35,11 @@ I use the [Nightfox](https://github.com/EdenEast/nightfox.nvim) theme.
 ## How to use the toolbox
 <TBD>
 
+
+## How secrets are managed
+<TBD>
+
+
 ## How binaries are managed.
 A lot of the tools that I use can be installed by downloading a binary, make it
 executable and add it to a location in $PATH. Example: Terraform, kubectl,

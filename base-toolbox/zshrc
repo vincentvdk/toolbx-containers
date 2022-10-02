@@ -12,7 +12,7 @@ antigen bundle zsh-users/zsh-syntax-highlighting
 antigen bundle zsh-users/zsh-autosuggestions
 antigen bundle zsh-users/zsh-completions
 antigen bundle fzf
-
+antigen theme romkatv/powerlevel10k
 # Tell Antigen that you're done.
 antigen apply
 
@@ -23,13 +23,14 @@ export GOPATH=/opt/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.local/bin:${KREW_ROOT:-$HOME/.krew}/bin
 
 # -- Aliases ---------------------------------------
+# You can add other alias sources for custom stuff you don't want to share.
 source /opt/config/zsh_aliases
 
-alias tmux='tmux -s /tmp/${HOSTNAME} new' # tmux sessions in toolboxes are re-using existing sessions causing issues
-alias dpg='cd ~/customers/dpg'
-alias zoolite='cd ~/zoolite'
-alias gi='~/.local/bin/grv'
-alias aws-instances="aws ec2 describe-instances | jq -r '.Reservations[].Instances[] | .Tags[]|select(.Key=="Name")|.Value'"
+#alias tmux='tmux -s /tmp/${HOSTNAME} new' # tmux sessions in toolboxes are re-using existing sessions causing issues
+#alias dpg='cd ~/customers/dpg'
+#alias zoolite='cd ~/zoolite'
+#alias gi='~/.local/bin/grv'
+#alias aws-instances="aws ec2 describe-instances | jq -r '.Reservations[].Instances[] | .Tags[]|select(.Key=="Name")|.Value'"
 
 # -- ssh-agent ----------------------------------------------------------------
 SSH_ENV="$HOME/.ssh/environment"
@@ -53,18 +54,6 @@ else
     start_agent;
 fi
 
-# --  AWS ---------------------------------------------------------------------
-# Update prompt with AWS Profile
-#function aws_prof {
-#  local profile="${AWS_PROFILE}"
-#
-#  if [[ -z "${profile}" ]]
-#  then echo ""
-#  else echo "%{$fg_bold[blue]%}aws:(%{$fg[yellow]%}${profile}%{$fg_bold[blue]%})%{$reset_color%} "
-#  fi
-#}
-#PROMPT='$(aws_prof)'
-
 # -- Fuzzy finder --------------------------------------------------------------
 export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" ' 
 
@@ -72,12 +61,14 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" '
 . $ASDF_DIR/asdf.sh
 
 # -- Initialize starship prompt
-eval "$(starship init zsh)"
+# eval "$(starship init zsh)"
 
 ## BEGIN NVM Block
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 #export PATH=$PATH:$(yarn global bin) # needed for coc diagnostics-languageserver
 ## END NVM Block
 
+# -- PROMPT
+source /opt/powerlevel10k/powerlevel10k.zsh-theme
 # To customize prompt, run `p10k configure` or edit /opt/config/zsh/.p10k.zsh.
 [[ ! -f /opt/config/zsh/p10k.zsh ]] || source /opt/config/zsh/p10k.zsh

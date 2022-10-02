@@ -14,4 +14,4 @@ COPY nvim /opt/config/nvim
 RUN git clone --depth 1 https://github.com/wbthomason/packer.nvim \
     ${XDG_CONFIG_HOME}/nvim/site/pack/packer/start/packer.nvim
 
-RUN alias vim='/opt/nvim/nvim.appimage'
+RUN echo 'alias vim="/opt/nvim/nvim.appimage"' >> /opt/config/zsh/.zshrc
