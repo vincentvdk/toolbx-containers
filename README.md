@@ -20,7 +20,7 @@ These toolboxes are based on Fedora as I run them on Fedora Silverblue. They are
 other distributions.
 
 - To run the toolboxes you need at least `toolbox` installed (https://containertoolbx.org/).
-- If you need to build the toolbox images you also need `podman` (which is a dependency of toolbox) 
+- If you need to build the toolbox images you also need `podman` (https://podman.io/ which is a dependency of toolbox) 
 
 ## What's in the toolboxes?
 ### Packages
