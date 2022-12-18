@@ -1,0 +1,34 @@
+#!/bin/sh
+
+gum style --border normal --margin "1" --padding "1" "Choose binary to manage"
+OPTIONS=$(gum choose --no-limit "terraform" "terraform-ls" "kubectl" "gcloud" "golang" "kubie")
+
+get_binary () {
+  ACTION=$(gum choose --no-limit "latest" "enter version" "show available" "show current")
+  case $ACTION in
+    'show available')
+      AVAILABLE_VERSION=$(asdf list $1)
+      gum style --foreground "#f14e32" $AVAILABLE_VERSION
+      ;;
+    'show current')
+      CURRENT_VERSION=$(asdf current $1)
+      gum style --foreground "#f14e32" $CURRENT_VERSION
+      ;;
+    'latest')
+      asdf install $1
+      ;;
+    'version')
+      VERSION=$(gum input --placeholder="Enter version to install (ex 1.2.1)")
+      asdf install $1 $VERSION
+      asdf global $1 $VERSION
+      ;;
+  esac
+}
+
+echo $OPTIONS | tr " " "\n" | while read -r OPT
+do
+  asdf plugin add $OPT
+  get_binary $OPT
+done
+
+#ACTION=$(gum choose --cursor.foreground="#f14e32" "")

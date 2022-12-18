@@ -19,6 +19,9 @@ multiple teams at a single customer.
 These toolboxes are based on Fedora as I run them on Fedora Silverblue. They are not tested on
 other distributions.
 
+- To run the toolboxes you need at least `toolbox` installed.
+- If you need to build the toolbox images you also need `podman` (which is a dependency of toolbox) 
+
 ## What's in the toolboxes?
 ### Packages
 - tmux
@@ -33,7 +36,31 @@ other distributions.
 I use the [Nightfox](https://github.com/EdenEast/nightfox.nvim) theme.
 
 ## How to use the toolbox
-<TBD>
+### Build container images
+From the root of this project run:
+```
+podman build -t toolbox/nvim nvim-toolbox/
+```
+
+### Create and run a toolbox using the container image
+Create a toolbox with the name `mytoolbox`
+```
+$ toolbox create -i toolbox/nvim mytoolbox
+Created container: mytoolbox
+Enter with: toolbox enter mytoolbox
+```
+
+Run the toolbox
+```
+toolbox enter mytoolbox
+```
+
+I always use `tmux` for work in a terminal. Since it's part of the container
+image you can run it from the toolbox. But you can also get a `tmux` session in one go
+
+```
+toolbox run -c mytoolbox tmux
+```
 
 
 ## How secrets are managed

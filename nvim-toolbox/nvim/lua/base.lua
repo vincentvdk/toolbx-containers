@@ -31,7 +31,7 @@ vim.keymap.set('n', '<leader>bb', ':bprevious<CR>', {desc = 'BUFFERS - switch to
 -- https://vim.fandom.com/wiki/Deleting_a_buffer_without_closing_the_window
 vim.keymap.set('n', '<leader>bd', ':bp <BAR> bd#<CR>', {desc = 'BUFFERS -  Close the current buffer and move to the previous one'})
 vim.keymap.set('n', '<leader>bl', ':ls', {desc = 'BUFFERS - list all open buffers'})
-vim.keymap.set('n', '<SPACE>', ':nohl', {desc = 'remove highlights'})
+vim.keymap.set('n', '<SPACE>', ':nohl<CR>', {desc = 'remove highlights'})
 
 -- Buffer config
 vim.bo.swapfile = false
@@ -83,6 +83,7 @@ require('lualine').setup()
 require('nvim-treesitter.configs').setup {
   highlight = { enable = true },
   indent = { enable = true },
+  ensure_installed = { "lua", "go", "dockerfile", "yaml" },
 }
 
 -- LSP ------------------------------------------------------------------------
@@ -111,7 +112,7 @@ cmp.setup {
   mapping = cmp.mapping.preset.insert({
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<CR>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp', group_index = 1 },
