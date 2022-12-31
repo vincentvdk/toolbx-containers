@@ -1,8 +1,10 @@
-FROM vincentvdk/toolbox
+FROM vincentvdk/toolbox:latest
 LABEL com.github.containers.toolbox="true"
 
+ARG NVIM_VERSION=0.8.0
+
 RUN mkdir /opt/nvim /opt/config/nvim && \
-    curl -OL https://github.com/neovim/neovim/releases/download/v0.7.2/nvim.appimage && \
+    curl -OL https://github.com/neovim/neovim/releases/download/v${NVIM_VERSION}/nvim.appimage && \
     mv nvim.appimage /opt/nvim && \
     chmod +x /opt/nvim/nvim.appimage
 

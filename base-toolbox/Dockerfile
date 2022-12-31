@@ -1,4 +1,4 @@
-FROM fedora:latest
+FROM fedora:37
 LABEL com.github.containers.toolbox="true"
 
 # -- Packages

@@ -32,6 +32,17 @@ vim.keymap.set('n', '<leader>bb', ':bprevious<CR>', {desc = 'BUFFERS - switch to
 vim.keymap.set('n', '<leader>bd', ':bp <BAR> bd#<CR>', {desc = 'BUFFERS -  Close the current buffer and move to the previous one'})
 vim.keymap.set('n', '<leader>bl', ':ls', {desc = 'BUFFERS - list all open buffers'})
 vim.keymap.set('n', '<SPACE>', ':nohl<CR>', {desc = 'remove highlights'})
+-- Keep paste data in buffer when replacing (original string stays in buffer)
+vim.keymap.set('x', '<leader>p', "\"_dP")
+-- Need to check these
+vim.keymap.set('n', '<leader>p', "\"_d")
+vim.keymap.set('v', '<leader>p', "\"_d")
+
+-- Handling brackets
+-- vim.keymap.set('i', '(', '()<left>', { noremap = true })
+vim.keymap.set('i', '(', '()<left>', { noremap = true })
+vim.keymap.set('i', '{', '{}<left>', { noremap = true })
+vim.keymap.set('i', '{<CR>', '{<CR>}<ESC>O', { noremap = true })
 
 -- Buffer config
 vim.bo.swapfile = false
@@ -76,6 +87,10 @@ require('nightfox').setup({
 -- Load theme (needs to load after settings)
 vim.cmd("colorscheme nightfox")   -- https://github.com/EdenEast/nightfox.nvim
 
+-- highlights -----------------------------------------------------------------
+-- vim.api.nvim_set_hl(0, '@text.note', { link = 'Todo' })
+--vim.api.nvim_set_hl(0, '@text.note', {})
+
 -- Lualine --------------------------------------------------------------------
 require('lualine').setup()
 
@@ -83,7 +98,7 @@ require('lualine').setup()
 require('nvim-treesitter.configs').setup {
   highlight = { enable = true },
   indent = { enable = true },
-  ensure_installed = { "lua", "go", "dockerfile", "yaml" },
+  ensure_installed = { "lua", "go", "dockerfile", "yaml", "comment" },
 }
 
 -- LSP ------------------------------------------------------------------------
