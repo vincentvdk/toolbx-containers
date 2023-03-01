@@ -76,7 +76,7 @@ Adding all these to the container image would cause it to become quite big
 which is something I want to prevent. therefore the useful
 [asdf]([https://github.com/asdf-vm/asdf) tool will be used. This tool will
 install and manage the versions for the binaries we need, but will put them on
-the host system (so not in the container - `$ASDF_DATA_DIR`). 
+the host system (so not in the container - `$ASDF_DATA_DIR`).
 
 Best way to explain it is by showing some examples
 
@@ -93,3 +93,16 @@ Check the `asdf` [documentation](https://asdf-vm.com/guide/getting-started.html)
 ## References
 - https://github.com/containers/toolbox
 - https://github.com/kennyp/asdf-golang/issues/28 (Golang and asdf)
+
+## Dependencies
+The following packages are needed for NeoVim plugins (Treesitter)
+
+```
+dnf install gcc clang
+```
+
+## Troubleshooting
+Issue: When opening help in NeoVim you see the following error: `cannot find -lstdc++: No such file or directory`
+Solution: install `gcc clang lstdc++-static lstdc++` and run in vim `:TSUpdate`
+
+__NOTE__: It is a good idea to run `TSUpdate` after an update of `TreeSitter`

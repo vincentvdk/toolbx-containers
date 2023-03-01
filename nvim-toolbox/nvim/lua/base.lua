@@ -9,7 +9,7 @@ vim.o.cursorline = true   -- highlight current line
 vim.o.wrap = false        -- wrap long lines
 vim.o.autoindent = true   -- indentation
 vim.o.smartindent = true  -- indentation
-vim.o.scrolloff = 10      -- keep cursor x lines from bottom when scrolling 
+vim.o.scrolloff = 10      -- keep cursor x lines from bottom when scrolling
 vim.o.showmatch = false   -- [{}] matching already part of color theme?
 vim.o.autoindent = true   -- indentation
 vim.o.smartindent = true  -- indentation
@@ -46,7 +46,7 @@ vim.keymap.set('i', '{<CR>', '{<CR>}<ESC>O', { noremap = true })
 
 -- Buffer config
 vim.bo.swapfile = false
- 
+
 -- Clipboard
 vim.o.clipboard = "unnamedplus"
 
@@ -59,7 +59,7 @@ vim.opt.expandtab = true
 -- Line numbers
 vim.opt.number = true
 --vim.wo.relativenumber = true
-vim.api.nvim_command([[
+vim.cmd([[
     autocmd BufEnter,FocusGained,InsertLeave,WinEnter * if &nu && mode() != "i" | set rnu   | endif
     autocmd BufLeave,FocusLost,InsertEnter,WinLeave   * if &nu                  | set nornu | endif
 ]])
@@ -76,7 +76,7 @@ require('nightfox').setup({
       functions = "italic,bold",
     },
     inverse = {
-      match_paren = true, -- inverse the highlighting of match_paren
+      match_paren = false, -- inverse the highlighting of match_paren
     },
     hlgroups = {
       goOperator = { fg = "${yellow_dm}" },
@@ -84,12 +84,29 @@ require('nightfox').setup({
   }
 })
 
+-- Telescope ------------------------------------------------------------------
+require('telescope').setup({
+  pickers = {
+    find_files = {
+      find_command = {"rg", "--files", "--hidden", "--glob", "!**/.git/*"}
+    }
+  }
+
+})
+
 -- Load theme (needs to load after settings)
 vim.cmd("colorscheme nightfox")   -- https://github.com/EdenEast/nightfox.nvim
 
 -- highlights -----------------------------------------------------------------
+-- EXAMPLE
 -- vim.api.nvim_set_hl(0, '@text.note', { link = 'Todo' })
 --vim.api.nvim_set_hl(0, '@text.note', {})
+-- vim.api.nvim_set_hl(0, 'ToDo', {bg="blue"})
+-- vim.cmd[[ match ToDo 'TODO' ]]
+-- END EXAMPLE
+-- Mark unnecessay whitespace
+vim.api.nvim_set_hl(0, 'Whitespace', { bg='Red' })
+vim.cmd[[ match Whitespace /\s\+\%#\@<!$/ ]]
 
 -- Lualine --------------------------------------------------------------------
 require('lualine').setup()
@@ -154,7 +171,7 @@ cmp.setup.cmdline('/', {
 })
 
 -- Wire up with LSP
-local capabilities = require('cmp_nvim_lsp').update_capabilities(vim.lsp.protocol.make_client_capabilities())
+local capabilities = require('cmp_nvim_lsp').default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Language servers config ----------------------------------------------------
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
@@ -176,6 +193,10 @@ require('lspconfig')['gopls'].setup{
     usePlaceholders = true,
   }
 }
+vim.api.nvim_create_autocmd({"BufWritePre"}, {
+  pattern = {"*.go"},
+  callback = vim.lsp.buf.formatting_sync,
+})
 
 -- Typescript
 require'lspconfig'.tsserver.setup{

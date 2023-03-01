@@ -1,4 +1,4 @@
-FROM vincentvdk/toolbox:latest
+FROM vincentvdk/base:latest
 LABEL com.github.containers.toolbox="true"
 
 ARG NVIM_VERSION=0.8.0

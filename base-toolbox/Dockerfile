@@ -2,7 +2,7 @@ FROM fedora:37
 LABEL com.github.containers.toolbox="true"
 
 # -- Packages
-RUN dnf install -y tmux passwd bash zsh fuse fuse-libs curl git unzip procps-ng ripgrep bat pgp-tools xclip && dnf clean all
+RUN dnf install -y tmux passwd bash zsh fuse fuse-libs curl git unzip procps-ng ripgrep bat pgp-tools wl-clipboard && dnf clean all
 
 # -- Directories
 #RUN mkdir -p /opt/config/zsh
@@ -40,10 +40,13 @@ RUN git clone https://github.com/nvm-sh/nvm.git "$NVM_DIR" && \
 
 # -- Charm
 RUN dnf install -y https://github.com/charmbracelet/charm/releases/download/v0.12.4/charm_0.12.4_linux_amd64.rpm \
-  	https://github.com/charmbracelet/gum/releases/download/v0.6.0/gum_0.6.0_linux_amd64.rpm 
+  	https://github.com/charmbracelet/gum/releases/download/v0.6.0/gum_0.6.0_linux_amd64.rpm
+COPY scripts/ /opt/bin
 
 # -- basic bash config to set hostname and such (might need to look into a better solution later on)
 RUN echo 'export HOSTNAME=`cat /run/.containerenv | grep 'name=' | cut -d= -f2`' >> ~/.bashrc
+
+# add someting like in this GH issue https://github.com/containers/toolbox/issues/145
 
 # -- ENV
 ENV ZDOTDIR=/opt/config/zsh
