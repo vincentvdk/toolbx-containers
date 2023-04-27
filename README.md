@@ -1,3 +1,5 @@
+[![Docker](https://github.com/vincentvdk/toolbx-containers/actions/workflows/container-publish.yml/badge.svg)](https://github.com/vincentvdk/toolbx-containers/actions/workflows/container-publish.yml)
+
 # Toolbx containers
 Source to build `toolbox` container images containing all tools and config that I use on a daily basis.
 
