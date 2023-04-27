@@ -77,22 +77,22 @@ jobs:
         with:
           context: ./base-toolbox
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/vincentvdk/toolbox:base-latest
+          tags: ghcr.io/vincentvdk/toolbox-base:latest
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=gha
           cache-to: type=gha,mode=max
-      #- name: Build and push NeoVIM container image
-      #  id: build-push-nvim-container
-      #  uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
-      #  with:
-      #    context: ./nvim-toolbox
-      #    build-contexts: |
-      #      vincentvdk/base=docker-image://toolbox-base:latest
-      #    push: ${{ github.event_name != 'pull_request' }}
-      #    tags: ghcr.io/vincentvdk/toolbox:nvim-latest
-      #    labels: ${{ steps.meta.outputs.labels }}
-      #    cache-from: type=gha
-      #    cache-to: type=gha,mode=max
+      - name: Build and push NeoVIM container image
+        id: build-push-nvim-container
+        uses: docker/build-push-action@ac9327eae2b366085ac7f6a2d02df8aa8ead720a
+        with:
+          context: ./nvim-toolbox
+          build-contexts: |
+            vincentvdk/base=docker-image://toolbox-base:latest
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ghcr.io/vincentvdk/toolbox-nvim:latest
+          labels: ${{ steps.meta.outputs.labels }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
 
 
           ## Sign the resulting Docker image digest except on PRs.
