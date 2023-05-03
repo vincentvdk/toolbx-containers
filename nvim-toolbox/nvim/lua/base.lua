@@ -109,7 +109,52 @@ vim.api.nvim_set_hl(0, 'Whitespace', { bg='Red' })
 vim.cmd[[ match Whitespace /\s\+\%#\@<!$/ ]]
 
 -- Lualine --------------------------------------------------------------------
-require('lualine').setup()
+require('lualine').setup {
+  options = {
+    icons_enabled = true,
+    theme = 'auto',
+    component_separators = { left = '', right = ''},
+    section_separators = { left = '', right = ''},
+    disabled_filetypes = {
+      statusline = {},
+      winbar = {},
+    },
+    ignore_focus = {},
+    always_divide_middle = true,
+    globalstatus = false,
+    refresh = {
+      statusline = 1000,
+      tabline = 1000,
+      winbar = 1000,
+    }
+  },
+  sections = {
+    lualine_a = {'mode'},
+    lualine_b = {'branch', 'diff', 'diagnostics'},
+    lualine_c = {{'filename', path=1}},
+    lualine_x = {'encoding', 'fileformat', 'filetype'},
+    lualine_y = {'progress'},
+    lualine_z = {'location'}
+  },
+  inactive_sections = {
+    lualine_a = {},
+    lualine_b = {},
+    lualine_c = {'filename'},
+    lualine_x = {'location'},
+    lualine_y = {},
+    lualine_z = {}
+  },
+  tabline = {},
+  winbar = {},
+  inactive_winbar = {},
+  extensions = {}
+--  sections = {
+--    lualine_c = {
+--      'filename',
+--      path = 1,
+--    }
+--  }
+}
 
 -- Treesitter -----------------------------------------------------------------
 require('nvim-treesitter.configs').setup {
@@ -119,15 +164,27 @@ require('nvim-treesitter.configs').setup {
 }
 
 -- LSP ------------------------------------------------------------------------
+vim.lsp.set_log_level('off')
 -- Diagnostics
 -- See `:help vim.lsp.*` for documentation
 local on_attach = function(client, bufnr)
-	vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
+  -- Enable completion triggered by <c-x><c-o>
+  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
+
+  -- Mappings.
+  -- See `:help vim.lsp.*` for documentation on any of the below functions
+  local bufopts = { noremap=true, silent=true, buffer=bufnr }
+  vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, bufopts)
   vim.keymap.set('n', 'gd', vim.lsp.buf.definition, bufopts)
   vim.keymap.set('n', 'K', vim.lsp.buf.hover, bufopts)
   vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, bufopts)
   vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, opts)
-  vim.api.nvim_buf_set_option(bufnr, 'omnifunc', 'v:lua.vim.lsp.omnifunc') -- Enable completion triggered by <c-x><c-o>
+  vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, bufopts)
+  vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, bufopts)
+  vim.keymap.set('n', '<space>ca', vim.lsp.buf.code_action, bufopts)
+  vim.keymap.set('n', '<C-o>', vim.lsp.buf.signature_help, bufopts)
+  vim.keymap.set('n', 'gr', vim.lsp.buf.references, bufopts)
+  vim.keymap.set('n', '<space>f', function() vim.lsp.buf.format { async = true } end, bufopts)
 end
 
 -- Autocompletion configuration (hrsh7th/cmp-nvim-lsp)
@@ -145,6 +202,20 @@ cmp.setup {
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
     ['<CR>'] = cmp.mapping.confirm({ select = false, behavior = cmp.ConfirmBehavior.Replace }), -- Accept currently selected item. Set `select` to `false` to only confirm explicitly selected items.
+    ['<Tab>'] = function(fallback)
+      if cmp.visible() then
+          cmp.select_next_item()
+        else
+          fallback()
+        end
+      end,
+      ['<S-Tab>'] = function(fallback)
+      if cmp.visible() then
+          cmp.select_prev_item()
+        else
+          fallback()
+        end
+      end
   }),
   sources = cmp.config.sources({
     { name = 'nvim_lsp', group_index = 1 },
