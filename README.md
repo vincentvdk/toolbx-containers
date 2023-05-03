@@ -34,6 +34,13 @@ other distributions.
 - Language server (LSP) is handled by `neovim-lsp`.
 - `Telescope` takes care of fuzzy finding.
 
+#### efm-langserver
+efm is a General Purpose Language server and is used to format/lint using the build in LSP.
+[https://github.com/mattn/efm-langserver](https://github.com/mattn/efm-langserver)
+```
+go install github.com/mattn/efm-langserver@latest
+````
+
 ### Theme
 I use the [Nightfox](https://github.com/EdenEast/nightfox.nvim) theme.
 

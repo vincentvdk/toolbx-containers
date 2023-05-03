@@ -24,7 +24,7 @@ COPY zsh_aliases /opt/config/
 COPY tmux.conf /opt/config/tmux/tmux.conf
 
 # -- ASDF for binaries
-RUN git clone https://github.com/asdf-vm/asdf.git /opt/bin/asdf --branch v0.10.2
+RUN git clone https://github.com/asdf-vm/asdf.git /opt/bin/asdf --branch v0.11.3
 
 # -- powerlevel20k
 RUN git clone --depth=1 https://github.com/romkatv/powerlevel10k.git /opt/powerlevel10k
