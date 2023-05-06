@@ -18,12 +18,11 @@ antigen apply
 
 # PATH
 export PATH="/opt/bin:$PATH"
-export GOROOT=/usr/local/go
-export GOPATH=/opt/go
 export PATH=$PATH:$GOROOT/bin:$GOPATH/bin:$HOME/.local/bin:${KREW_ROOT:-$HOME/.krew}/bin
 
 # -- Aliases ---------------------------------------
 # You can add other alias sources for custom stuff you don't want to share.
+alias go-reshim="asdf reshim golang && export GOV=\$(asdf current golang | awk '{print \$2}') && export GOROOT=\"\$ASDFINSTALLS/golang/\$GOV/go/\" && export GOPATH=\"\$ASDFINSTALLS/golang/\$GOV\""
 source /opt/config/zsh_aliases
 
 #alias tmux='tmux -s /tmp/${HOSTNAME} new' # tmux sessions in toolboxes are re-using existing sessions causing issues
@@ -59,6 +58,24 @@ export FZF_DEFAULT_COMMAND='rg --files --hidden -g "!.git" '
 
 # -- ASDF
 . $ASDF_DIR/asdf.sh
+# -- Detect asdf-golang and set GOPATH and GOROOT
+function absolute_dir_path {
+  local absolute_path
+  absolute_path="$( cd -P "$( dirname "$1" )" && pwd )"
+  echo "$absolute_path"
+}
+
+asdf_update_golang_env() {
+  local go_path
+  go_path="$(asdf which go)"
+  if [[ -n "${go_path}" ]]; then
+    export GOROOT
+    GOROOT="$(dirname "$(absolute_dir_path "${go_path}")")"
+  fi
+}
+
+autoload -U add-zsh-hook
+add-zsh-hook precmd asdf_update_golang_env
 
 # -- Initialize starship prompt
 # eval "$(starship init zsh)"
